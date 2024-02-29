@@ -16,8 +16,7 @@ class OgpConfigsServiceTest extends BcTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->OgpConfigsService = $this->getService(OgpConfigsServiceInterface::class);
-        //$this->OgpConfigsService = $this->get(OgpConfigsServiceInterface::class);
+        $this->OgpConfigsService = $this->get(OgpConfigsServiceInterface::class);
     }
 
     public function tearDown(): void
@@ -28,6 +27,11 @@ class OgpConfigsServiceTest extends BcTestCase
 
     public function test__construct()
     {
+        $r = $this->OgpConfigsService->OgpConfigs->getTable();
+        var_dump($r);
+        die;
+
+        
         $factory = new \DubOgp\Test\Factory\OgpConfigFactory();
         var_dump($factory);
         die;
