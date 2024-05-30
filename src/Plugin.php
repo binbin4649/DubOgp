@@ -19,12 +19,22 @@ use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
 use DubOgp\ServiceProvider\DubOgpServiceProvider;
+use Migrations\Migrations;
 
 /**
  * Plugin for DubOgp
  */
 class Plugin extends BcPlugin
 {
+    
+    public function install($options = []) : bool
+    {
+        $migrations = new Migrations();
+        $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed']);
+
+        return parent::install($options);
+    }
+    
     /**
      * Load all the plugin configuration and bootstrap logic.
      *
