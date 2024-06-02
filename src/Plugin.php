@@ -20,6 +20,7 @@ use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
 use DubOgp\ServiceProvider\DubOgpServiceProvider;
 use Migrations\Migrations;
+use Cake\ORM\TableRegistry;
 
 /**
  * Plugin for DubOgp
@@ -29,9 +30,6 @@ class Plugin extends BcPlugin
     
     public function install($options = []) : bool
     {
-        $migrations = new Migrations();
-        $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed']);
-
         return parent::install($options);
     }
     
@@ -47,6 +45,14 @@ class Plugin extends BcPlugin
     public function bootstrap(PluginApplicationInterface $app): void
     {
         parent::bootstrap($app);
+
+        //データ無かったら入れる。（なんか違うと思うけど、とりまこれで、、）
+        $DubOgpConfigs = TableRegistry::getTableLocator()->get('DubOgp.DubOgpConfigs');
+        $count = $DubOgpConfigs->find()->count();
+        if($count === 0){
+            $migrations = new Migrations();
+            $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed']);
+        }
     }
 
     /**
