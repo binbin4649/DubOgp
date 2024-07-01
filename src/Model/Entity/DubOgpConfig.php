@@ -35,9 +35,6 @@ class DubOgpConfig extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'name' => true,
-        'value' => true,
-        'created' => true,
-        'modified' => true,
+        '*' => true,
     ];
 }

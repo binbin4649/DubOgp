@@ -62,6 +62,22 @@ class DubOgpConfigsTableTest extends TestCase
     }
 
     /**
+     * beforeMarshalメソッドのテスト
+     *
+     * @return void
+     */
+    public function testBeforeMarshal(): void
+    {
+        $data = new \ArrayObject([
+            'twitter_id' => '@example',
+        ]);
+        $options = new \ArrayObject();
+        $event = new \Cake\Event\Event('Model.beforeMarshal', $this->DubOgpConfigs, compact('data', 'options'));
+        $this->DubOgpConfigs->beforeMarshal($event, $data, $options);
+        $this->assertEquals('example', $data['twitter_id'], 'twitter_idの先頭の@が削除されるべきです。');
+    }
+
+    /**
      * Test validationDefault method
      *
      * @return void
@@ -109,6 +125,17 @@ class DubOgpConfigsTableTest extends TestCase
     public function testBehaviorLoaded(): void
     {
         $this->assertTrue($this->DubOgpConfigs->hasBehavior('BcKeyValue'));
+    }
+
+    /**
+     * BcKeyValue behaviorを使用して値が正しく取得できるかのテスト
+     *
+     * @return void
+     */
+    public function testBcKeyValueBehaviorValueRetrieval(): void
+    {
+        $values = $this->DubOgpConfigs->getKeyValue();
+        $this->assertNotEmpty($values, 'BcKeyValueから値が取得できません。');
     }
 
     /**

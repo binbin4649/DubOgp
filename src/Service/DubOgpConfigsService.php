@@ -58,15 +58,9 @@ class DubOgpConfigsService implements DubOgpConfigsServiceInterface
     /**
      * get
      * @param 
-     * @return \Cake\Datasource\EntityInterface
+     * @return DubOgpConfig
      */
-    // public function get(int $id, array $options = []): \Cake\Datasource\EntityInterface
-    // {
-    //     return $this->DubOgpConfigs->get($id, [
-    //         'contain' => [],
-    //     ]);
-    // }
-    public function get(): EntityInterface
+    public function get(): DubOgpConfig
     {
         if (!$this->entity) {
             $this->entity = $this->DubOgpConfigs->newEntity(
@@ -129,7 +123,7 @@ class DubOgpConfigsService implements DubOgpConfigsServiceInterface
     //     return $this->DubOgpConfigs->saveOrFail($user);
     // }
 
-    public function update(array $postData): ?EntityInterface
+    public function update(array $postData): ?DubOgpConfig
     {
         $entity = $this->DubOgpConfigs->newEntity($postData, ['validate' => 'keyValue']);
         if ($entity->hasErrors()) {

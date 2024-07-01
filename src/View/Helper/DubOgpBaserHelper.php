@@ -25,7 +25,7 @@ class DubOgpBaserHelper extends Helper implements BcPluginBaserHelperInterface
      * Helper
      * @var array
      */
-    //public array $helpers = ['DubOgp.DubOgp'];
+    public $helpers = ['DubOgp.DubOgp'];
 
     /**
      * Method
@@ -34,7 +34,7 @@ class DubOgpBaserHelper extends Helper implements BcPluginBaserHelperInterface
     public function methods(): array
     {
         return [
-            //'getDubOgpIndex' => ['DubOgp', 'getIndex'],
+            'showOgp' => ['DubOgp', 'showOgp'],
         ];
     }
 

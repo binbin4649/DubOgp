@@ -16,6 +16,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use BaserCore\Model\Behavior\BcKeyValueBehavior;
 
 /**
  * DubOgpConfigs Model
@@ -54,6 +55,21 @@ class DubOgpConfigsTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('BaserCore.BcKeyValue');
+    }
+
+    /**
+     * beforeMarshal イベントのコード
+     *
+     * @param \Cake\Event\EventInterface $event イベントオブジェクト
+     * @param \ArrayObject $data データ
+     * @param \ArrayObject $options オプション
+     * @return void
+     */
+    public function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $data, \ArrayObject $options): void
+    {
+        if (isset($data['twitter_id']) && strpos($data['twitter_id'], '@') === 0) {
+            $data['twitter_id'] = substr($data['twitter_id'], 1);
+        }
     }
 
     /**

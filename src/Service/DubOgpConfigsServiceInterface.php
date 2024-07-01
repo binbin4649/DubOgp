@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace DubOgp\Service;
 
 use \Cake\Datasource\EntityInterface;
-
+use DubOgp\Model\Entity\DubOgpConfig;
 /**
  * DubOgpConfigs Service Interface
  */
@@ -29,9 +29,9 @@ interface DubOgpConfigsServiceInterface
     /**
      * get
      * @param 
-     * @return \Cake\Datasource\EntityInterface
+     * @return DubOgpConfig
      */
-    public function get(): \Cake\Datasource\EntityInterface;
+    public function get(): DubOgpConfig;
 
     /**
      * get list
@@ -63,9 +63,9 @@ interface DubOgpConfigsServiceInterface
     /**
      * edit
      * @param array $postData
-     * @return \Cake\Datasource\EntityInterface|null
+     * @return DubOgpConfig|null
      */
-    public function update(array $postData): ?EntityInterface;
+    public function update(array $postData): ?DubOgpConfig;
 
     /**
      * delete

@@ -34,7 +34,7 @@ class DubOgpConfigsControllerTest extends TestCase
      */
     public function testIndex(): void
     {
-        $this->get('/admin/dub-ogp/configs');
+        $this->get('/baser/admin/dub-ogp/dub_ogp_configs/index');
         $this->assertResponseOk();
         // 成功時とエラー時のレスポンスを確認するために、条件分岐を模擬する必要があります。
         // 以下は成功時のテストケース

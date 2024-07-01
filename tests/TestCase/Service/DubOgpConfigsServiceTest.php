@@ -3,16 +3,23 @@ namespace DubOgp\Test\TestCase\Service;
 
 use Cake\TestSuite\TestCase;
 use Cake\Datasource\EntityInterface;
-use BaserCore\Utility\BcContainerTrait;
+use Cake\Core\Container;
+use Cake\Core\ServiceProvider;
+// use BaserCore\Utility\BcContainerTrait;
 use DubOgp\Service\DubOgpConfigsService;
 use DubOgp\Service\DubOgpConfigsServiceInterface;
+use DubOgp\Model\Entity\DubOgpConfig;
 
 class DubOgpConfigsServiceTest extends TestCase
 {
     
-    use BcContainerTrait;
+    // use BcContainerTrait;
 
     public $DubOgpConfigsService;
+
+    protected $fixtures = [
+        'plugin.DubOgp.DubOgpConfigs',
+    ];
 
     public function setUp(): void
     {
@@ -24,6 +31,14 @@ class DubOgpConfigsServiceTest extends TestCase
     {
         unset($this->DubOgpConfigsServiceMock);
         parent::tearDown();
+    }
+
+    public function testFixtureLoaded()
+    {
+        $table = $this->getTableLocator()->get('DubOgp.DubOgpConfigs');
+        $query = $table->find();
+        $result = $query->toArray();
+        $this->assertNotEmpty($result, 'フィクスチャが読み込まれていません。');
     }
 
     public function testDubOgpConfigsServiceMockCreation()
@@ -50,10 +65,10 @@ class DubOgpConfigsServiceTest extends TestCase
             'locale_alternate' => 'ja_JP'
         ];
 
-        $this->DubOgpConfigsServiceMock->method('update')->willReturn($this->createMock(EntityInterface::class));
+        $this->DubOgpConfigsServiceMock->method('update')->willReturn($this->createMock(DubOgpConfig::class));
 
         $result = $this->DubOgpConfigsServiceMock->update($postData);
-        $this->assertInstanceOf(EntityInterface::class, $result);
+        $this->assertInstanceOf(DubOgpConfig::class, $result);
     }
 
     public function testUpdateFailure()
@@ -78,6 +93,18 @@ class DubOgpConfigsServiceTest extends TestCase
             $this->assertEquals("入力エラーです。内容を修正してください。", $e->getMessage());
             throw $e;
         }
+    }
+
+    public function testGet()
+    {   
+        $this->DubOgpConfigsService = new DubOgpConfigsService();
+        $result = $this->DubOgpConfigsService->get();
+        $this->assertInstanceOf(EntityInterface::class, $result);
+        $this->assertNotEmpty($result);
+        $this->assertArrayHasKey('twitter_id', $result);
+        $this->assertArrayHasKey('twitter_card', $result);
+        $this->assertArrayHasKey('facebook_app_id', $result);
+        $this->assertArrayHasKey('default_image', $result);
     }
 
 }

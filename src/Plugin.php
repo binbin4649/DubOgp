@@ -52,6 +52,8 @@ class Plugin extends BcPlugin
         if($count === 0){
             $migrations = new Migrations();
             $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed']);
+
+            //$this->addPlugin('BaserCore');
         }
     }
 
