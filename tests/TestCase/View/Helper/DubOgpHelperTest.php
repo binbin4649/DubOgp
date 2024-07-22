@@ -19,9 +19,9 @@ use BcBlog\View\Helper\BlogHelper;
 use CakephpFixtureFactories\Scenario\ScenarioAwareTrait;
 
 class DubOgpHelperTest extends TestCase
-{   
+{
     use ScenarioAwareTrait;
-    
+
     private $container;
     private $DubOgpHelper;
 
@@ -45,7 +45,7 @@ class DubOgpHelperTest extends TestCase
     public function testShowOgp()
     {
         $this->DubOgpHelper->showOgp();
-        $output = $this->view->fetch('content');
+        $output = $this->DubOgpHelper->getView()->fetch('content');
         $this->assertStringContainsString('<meta property="og:', $output, 'OGPメタタグが出力されていません。');
     }
 
@@ -59,15 +59,15 @@ class DubOgpHelperTest extends TestCase
         ]);
         $request = $request->withAttribute('currentSite', $site);
         $requestMock = $this->getMockBuilder('Cake\Http\ServerRequest')
-                            ->setMethods(['getUri'])
-                            ->getMock();
+            ->onlyMethods(['getUri'])
+            ->getMock();
         $requestMock->method('getUri')
-                    ->willReturn(new \Laminas\Diactoros\Uri('/'));
-        $requestMock = $requestMock->withAttribute('currentSite', $site);
-        $this->DubOgpHelper->getView()->setRequest($requestMock);
-        
+            ->willReturn(new \Laminas\Diactoros\Uri('/'));
+        $request = $request->withAttribute('currentSite', $site);
+        $this->DubOgpHelper->getView()->setRequest($request->withAttribute('currentSite', $site));
+
         $result = $this->DubOgpHelper->ogpInfo();
-        var_dump($result);
+        var_dump($result->title);
         die;
     }
 
@@ -82,19 +82,18 @@ class DubOgpHelperTest extends TestCase
         ]);
         $request = $request->withAttribute('currentSite', $site);
         $requestMock = $this->getMockBuilder('Cake\Http\ServerRequest')
-                            ->setMethods(['getUri', 'getPath'])
-                            ->getMock();
+            ->onlyMethods(['getUri', 'getPath'])
+            ->getMock();
         $requestMock->method('getUri')
-                    ->willReturn(new \Laminas\Diactoros\Uri('/test-path'));
+            ->willReturn(new \Laminas\Diactoros\Uri('/test-path'));
         $requestMock->method('getPath')
-                    ->willReturn('/test-path');
-        $requestMock = $requestMock->withAttribute('currentSite', $site);
-        $this->DubOgpHelper->getView()->setRequest($requestMock);
-        
+            ->willReturn('/test-path');
+        $request = $request->withAttribute('currentSite', $site);
+        $this->DubOgpHelper->getView()->setRequest($request);
+
         $result = $this->DubOgpHelper->ogpInfo();
         var_dump($result);
         die;
         $this->assertEquals('/test-path', $this->DubOgpHelper->getView()->getRequest()->getPath(), 'リクエストパスが正しく取得できませんでした。');
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * baserCMS :  Based Website Development Project <https://basercms.net>
@@ -27,12 +28,12 @@ use Cake\ORM\TableRegistry;
  */
 class Plugin extends BcPlugin
 {
-    
-    public function install($options = []) : bool
+
+    public function install($options = []): bool
     {
         return parent::install($options);
     }
-    
+
     /**
      * Load all the plugin configuration and bootstrap logic.
      *
@@ -49,11 +50,9 @@ class Plugin extends BcPlugin
         //データ無かったら入れる。（なんか違うと思うけど、とりまこれで、、）
         $DubOgpConfigs = TableRegistry::getTableLocator()->get('DubOgp.DubOgpConfigs');
         $count = $DubOgpConfigs->find()->count();
-        if($count === 0){
+        if ($count === 0) {
             $migrations = new Migrations();
-            $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed']);
-
-            //$this->addPlugin('BaserCore');
+            $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed', 'connection' => 'default']);
         }
     }
 

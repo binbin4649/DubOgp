@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * baserCMS :  Based Website Development Project <https://basercms.net>
@@ -32,7 +33,7 @@ class DubOgpConfigsService implements DubOgpConfigsServiceInterface
 
     /**
      * キャッシュ用 Entity
-     * @var MailConfig
+     * @var DubOgpConfig
      */
     protected $entity;
 
@@ -51,8 +52,8 @@ class DubOgpConfigsService implements DubOgpConfigsServiceInterface
     public function getNew(): \Cake\Datasource\EntityInterface
     {
         return $this->DubOgpConfigs->newEntity([], [
-			'validate' => false,
-		]);
+            'validate' => false,
+        ]);
     }
 
     /**
@@ -148,5 +149,4 @@ class DubOgpConfigsService implements DubOgpConfigsServiceInterface
         $user = $this->get($id);
         return $this->DubOgpConfigs->delete($user);
     }
-
 }

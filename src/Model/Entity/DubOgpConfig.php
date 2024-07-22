@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * baserCMS :  Based Website Development Project <https://basercms.net>
@@ -34,7 +35,23 @@ class DubOgpConfig extends Entity
      *
      * @var array<string, bool>
      */
+    // protected $_accessible = [
+    //     '*' => true,
+    // ];
     protected $_accessible = [
-        '*' => true,
+        'twitter_id' => true,
+        'twitter_card' => true,
+        'facebook_app_id' => true,
+        'default_image' => true,
+        'locale' => true,
+        'locale_alternate' => true,
+        'title' => true,
+        'site_name' => true,
+        'type' => true,
+        'description' => true,
+        'url' => true,
+        'img_url' => true,
+        'img_height' => true,
+        'img_width' => true
     ];
 }

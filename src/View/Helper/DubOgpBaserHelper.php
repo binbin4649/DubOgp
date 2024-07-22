@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * baserCMS :  Based Website Development Project <https://basercms.net>
@@ -37,5 +38,4 @@ class DubOgpBaserHelper extends Helper implements BcPluginBaserHelperInterface
             'showOgp' => ['DubOgp', 'showOgp'],
         ];
     }
-
 }

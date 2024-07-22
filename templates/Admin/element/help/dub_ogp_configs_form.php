@@ -15,7 +15,8 @@
     <li>
         <b>デフォルトイメージ</b> : アイキャッチがない場合に代替する画像のファイル名。
         ( app/webroot/テーマ名/img/ ) or ( app/webroot/img/ )
-        デフォルトイメージはどちらかのディレクトに入れてください。
+        デフォルトイメージはどちらかのディレクトに入れてください。( app/webroot/img/ )が優先されます。
+        アイキャッチ・デフォルトイメージ、両方ともない場合は、( app/webroot/テーマ名/img/logo.png ) or ( app/webroot/img/basercms.png )が入ります。
     </li>
     <li>
         <b>locale</b> : 省略すると「ja_JP」が入る。
