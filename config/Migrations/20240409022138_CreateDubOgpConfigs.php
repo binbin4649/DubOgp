@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-// use Migrations\AbstractMigration;
-use BaserCore\Database\Migration\BcMigration;
+use Migrations\AbstractMigration;
+// use BaserCore\Database\Migration\BcMigration; //これだとidしか入らない?
 
-class CreateDubOgpConfigs extends BcMigration
+class CreateDubOgpConfigs extends AbstractMigration
 {
     /**
      * Change Method.
