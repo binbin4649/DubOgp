@@ -31,8 +31,6 @@ class Plugin extends BcPlugin
 
     public function install($options = []): bool
     {
-        $migrations = new Migrations();
-        $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed', 'connection' => 'default']);
         return parent::install($options);
     }
 
@@ -49,13 +47,14 @@ class Plugin extends BcPlugin
     {
         parent::bootstrap($app);
 
-        //データ無かったら入れる。（なんか違うと思うけど、とりまこれで、、）
-        // $DubOgpConfigs = TableRegistry::getTableLocator()->get('DubOgp.DubOgpConfigs');
-        // $count = $DubOgpConfigs->find()->count();
-        // if ($count === 0) {
-        //     $migrations = new Migrations();
-        //     $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed', 'connection' => 'default']);
-        // }
+        // データ無かったら入れる。（なんか違うと思うけど、とりまこれで、、）
+        // install に $migrations->seed を書くとfiledsが無いと怒られる。たぶん、migrationより先にinstallが動いてるからだと思う、
+        $DubOgpConfigs = TableRegistry::getTableLocator()->get('DubOgp.DubOgpConfigs');
+        $count = $DubOgpConfigs->find()->count();
+        if ($count === 0) {
+            $migrations = new Migrations();
+            $migrations->seed(['plugin' => 'DubOgp', 'seed' => 'DubOgpConfigsSeed', 'connection' => 'default']);
+        }
     }
 
     /**
